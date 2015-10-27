@@ -67,10 +67,8 @@ ret = fscanf(pumpguihs.serial);
 if pumpguihs.serial.BytesAvailable
     dump = char(fread(pumpguihs.serial,pumpguihs.serial.BytesAvailable)'); % Just to get rid ofthe last byte
 end
-while ~strfind('REGLO DIGITAL',ret)
-    fclose(pumpguihs.serial);
-    
-    cpcell = inputdlg({sprintf('The pump can not be found on the serial port, please specify a new port:\nP.S: Maybe you forgot to turn the pump on?')},'Handshake error',1,{COMPORT});
+while ~strfind('REGLO',ret)
+    cpcell = inputdlg({'The pump can not be found on the serial port, please specify a new port:'},'Handshake error',1,{COMPORT});
     COMPORT = cpcell{1};
     
     pumpguihs.serial = serial(COMPORT);
